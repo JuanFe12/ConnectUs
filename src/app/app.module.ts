@@ -3,13 +3,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { Toast } from '@ionic-native/toast/ngx';
 import { DatePicker } from '@ionic-native/date-picker/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LoginPage } from '../app/pages/login/login.page';
 
 //import firebase
 import { AngularFireModule } from '@angular/fire';
@@ -36,6 +39,7 @@ let firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule
+    
   ],
   providers: [
     StatusBar,
@@ -43,6 +47,9 @@ let firebaseConfig = {
     AngularFireDatabase,
     Camera,
     DatePicker,
+    LoginPage,
+    NavController,
+    Toast,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

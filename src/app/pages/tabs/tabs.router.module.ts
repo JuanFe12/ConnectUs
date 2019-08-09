@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginPage } from '../login/login.page';
 import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
   {
-    path: 'tabs',
+    path: '',
     component: TabsPage,
     children: [
       {
@@ -13,7 +14,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../pages/chat/chat.module').then(m => m.ChatPageModule)
+              import('../chat/chat.module').then(m => m.ChatPageModule)
           }
         ]
       },
@@ -23,7 +24,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../pages/group/group.module').then(m => m.GroupPageModule)
+              import('../group/group.module').then(m => m.GroupPageModule)
           }
         ]
       },
@@ -33,20 +34,30 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../pages/settings/settings.module').then(m => m.SettingsPageModule)
+              import('../settings/settings.module').then(m => m.SettingsPageModule)
+          }
+        ]
+      },
+      {
+        path: 'login',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../login/login.module').then(m => m.LoginPageModule)
           }
         ]
       },
       {
         path: '',
-        redirectTo: '/tabs/chat',
+        redirectTo: '/tabs',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/chat',
+    redirectTo: '/tabs',
     pathMatch: 'full'
   }
 ];
