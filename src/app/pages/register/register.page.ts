@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, LoadingController, Platform, ToastController } from '@ionic/angular';
 import { AuthService } from '../../providers/auth.service';
-import { Toast } from '@ionic-native/toast/ngx';
+import {Md5} from 'ts-md5/dist/md5';
 
-declare let window: any
+declare let window: any;
 
 @Component({
   selector: 'app-register',
@@ -12,12 +12,12 @@ declare let window: any
 })
 export class RegisterPage implements OnInit {
 
-  userDetails ={
-    Name:'',
+  userDetails = {
+    Name: '',
     Email: '',
     Phone: '',
-    Password: ''
-  }
+    userid: ''
+  };
 
   constructor(
     public Auth: AuthService,
@@ -30,12 +30,12 @@ export class RegisterPage implements OnInit {
   ngOnInit() {
   }
 
-  showToast(message){
-    this.platform.ready().then(()=>{
-      window.plugins.Toast.Toast.show(message, "Inval", 'bottom')
-    })
+  showToast(message) {
+    this.platform.ready().then(() => {
+      window.plugins.Toast.Toast.show(message, 'Inval', 'bottom');
+    });
   }
-  async register(){
+  async register() {
     const loading = await this.loadctr.create({
       spinner: 'lines',
       duration: 5000,
@@ -43,17 +43,18 @@ export class RegisterPage implements OnInit {
       translucent: true,
       cssClass: 'custom-class custom-loading'
     });
-     loading.present();
-     this.Auth.register(this.userDetails).then(() =>{
-       loading.dismiss()
-       this.NavCtr.navigateRoot('/login')
-       window.localStorage.setItem('Userstate', 'LogedIn')
-    }).catch((err)=>{
-      loading.dismiss()
-      let error = err.message
+    loading.present();
+    this.Auth.register(this.userDetails).then(() => {
+       loading.dismiss();
+       this.NavCtr.navigateRoot('/login');
+       window.localStorage.setItem('Userstate', 'LogedIn');
+       window.localStorage.setItem('userid', this.Auth.Auth.auth.currentUser.uid);
+
+    }).catch((err) => {
+      loading.dismiss();
+      const error = err.message;
       this.showToast(error);
-      
-    })
+    });
   }
 
 

@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title ><ion-icon name="arrow-round-back" routerLink="/tabs/chat" class="arrow"></ion-icon>
+      users</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item *ngFor="let user of users; let i = index">
+    <ion-avatar item-start>
+      <img src="{{user.photo}}">
+    </ion-avatar>
+    <p>{{user.Name}}</p>
+
+  </ion-item>
+</ion-content>

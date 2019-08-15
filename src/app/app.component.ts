@@ -19,23 +19,24 @@ export class AppComponent {
     this.initializeApp();
   }
 
-  rootPage: any = LoginPage
+  rootPage: any = LoginPage;
 
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.checkUserState()
+      this.checkUserState();
     });
   }
 
 
-  checkUserState(){
-    let Userstate = window.localStorage.getItem('Userstate')
-    if(Userstate == 'LogedIn'){
-      this.rootPage = LoginPage
-    }else{
-      this.rootPage = LoginPage
+  checkUserState() {
+    const Userstate = window.localStorage.getItem('Userstate');
+    // tslint:disable-next-line: triple-equals
+    if (Userstate == 'LogedIn') {
+      this.rootPage = LoginPage;
+    } else {
+      this.rootPage = LoginPage;
     }
   }
 }

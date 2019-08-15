@@ -14,32 +14,33 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginPage } from '../app/pages/login/login.page';
 
-//import firebase
+
+
+// import firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule, AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
-let firebaseConfig = {
-  apiKey: "AIzaSyBSlfQAE6CdcuROqa4G9QnxkMLgA7Uk0KA",
-  authDomain: "connectus-94bf5.firebaseapp.com",
-  databaseURL: "https://connectus-94bf5.firebaseio.com",
-  projectId: "connectus-94bf5",
-  storageBucket: "connectus-94bf5.appspot.com",
-  messagingSenderId: "320639747959",
-  appId: "1:320639747959:web:b3cc67c0d4e85a79"
+const firebaseConfig = {
+  apiKey: 'AIzaSyBSlfQAE6CdcuROqa4G9QnxkMLgA7Uk0KA',
+  authDomain: 'connectus-94bf5.firebaseapp.com',
+  databaseURL: 'https://connectus-94bf5.firebaseio.com',
+  projectId: 'connectus-94bf5',
+  storageBucket: 'connectus-94bf5.appspot.com',
+  messagingSenderId: '320639747959',
+  appId: '1:320639747959:web:b3cc67c0d4e85a79'
 };
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
-    BrowserModule, 
-    IonicModule.forRoot(), 
+    BrowserModule,
+    IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule
-    
   ],
   providers: [
     StatusBar,
@@ -47,7 +48,6 @@ let firebaseConfig = {
     AngularFireDatabase,
     Camera,
     DatePicker,
-    LoginPage,
     NavController,
     Toast,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

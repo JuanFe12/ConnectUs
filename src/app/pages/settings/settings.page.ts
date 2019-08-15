@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController} from '@ionic/angular';
+import { AuthService } from '../../providers/auth.service';
+
 
 @Component({
   selector: 'app-settings',
@@ -7,9 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    public authservice: AuthService,
+    public NavCtr: NavController
+
+
+  ) { }
 
   ngOnInit() {
+  }
+
+  logout() {
+  this.authservice.logout().then(() => {
+  this.NavCtr.navigateRoot('login');
+  window.localStorage.clear();
+
+    }).catch((err) => {
+      console.log(err);
+});
   }
 
 }
