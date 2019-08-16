@@ -6,7 +6,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-item *ngFor="let user of users; let i = index">
+  <ion-item *ngFor="let user of users; let i = index" (click)="showUserConfirmation(user)" >
     <ion-avatar item-start>
       <img src="{{user.photo}}">
     </ion-avatar>

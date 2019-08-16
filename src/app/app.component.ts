@@ -17,6 +17,7 @@ export class AppComponent {
     private statusBar: StatusBar
   ) {
     this.initializeApp();
+    localStorage.removeItem('firebase:previous_websocket_failure');
   }
 
   rootPage: any = LoginPage;
