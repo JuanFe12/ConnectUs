@@ -11,6 +11,7 @@ import { LoginPage } from './pages/login/login.page';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
