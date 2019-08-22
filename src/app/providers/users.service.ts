@@ -6,7 +6,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 })
 export class UsersService {
 
-  UserUid = window.localStorage.getItem('userid');
+  userid = window.localStorage.getItem('userid');
   
 
 constructor(
@@ -26,27 +26,50 @@ constructor(
       }
 
       for (let aa = array.length - 1; aa >= 0; aa--) {
-           if (array[aa].userid === this.UserUid) {
+           if (array[aa].userid === this.userid) {
             array.splice(aa, 1);
            }
       }
 
-      this.afDB.database.ref('request').child(this.UserUid).child('Sent Requests').once('value' , snap =>{
+      this.afDB.database.ref('request').child(this.userid).child('Sent Requests').once('value' , snap =>{
         const res = snap.val();
         const array2 = [];
         // tslint:disable-next-line: forin
         for (const i in res) {
           array2.push(res[i]);
+          console.log(res);
+          console.log(array2);
+          
+          
         }
-      
-        for (let bb = array2.length - 1; bb >= 0; bb--) {
-          if (array2[bb].userid === this.UserUid) {
-           array.splice(bb, 1);
+      for (let aa = array.length - 1; aa >= 0;  aa--) {
+        for (let bb = 0; bb < array2.length; bb++) {
+          if (array[aa].userid === array2[bb].Id) {
+                    array.splice(aa, 1);
           }
      }
-
-      })
-      resolve(array);
+      }
+    })
+    this.afDB.database.ref('request').child(this.userid).child('Sent Requests').once('value' , snap =>{
+      const res = snap.val();
+      const array3 = [];
+      // tslint:disable-next-line: forin
+      for (const i in res) {
+        array3.push(res[i]);
+        console.log(res);
+        console.log(array3);
+        
+        
+      }
+    for (let aa = array.length - 1; aa >= 0;  aa--) {
+      for (let bb = 0; bb < array3.length; bb++) {
+        if (array[aa].userid === array3[bb].Id) {
+                  array.splice(aa, 1);
+        }
+   }
+    }
+  })
+    resolve(array)
     }).catch((err) => {
       reject(err);
        });

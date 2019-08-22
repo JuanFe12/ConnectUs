@@ -75,6 +75,7 @@ export class UsersPage implements OnInit {
       if(this.users.length > 1){
              this.userservice.GetAllUsers().then((res: any) =>{
                this.users = res
+                console.log('Request has been sent to ' + userDetails.Name);
              }).catch((err) =>{
                loading.dismiss();
                      console.log(err);

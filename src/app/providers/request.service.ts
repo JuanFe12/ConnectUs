@@ -8,7 +8,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 })
 export class RequestService {
 
-  UserUid = window.localStorage.getItem('userid');
+  userid = window.localStorage.getItem('userid');
 
   constructor(
       public Auth: AngularFireAuth,
@@ -17,11 +17,11 @@ export class RequestService {
 
   makeRquest(userDetails){
      let promise = new Promise ((resolve, reject) =>{
-         this.afDB.database.ref('request').child(this.UserUid).child('Sent Requests').push({
+         this.afDB.database.ref('request').child(this.userid).child('Sent Requests').push({
            Id: userDetails.userid
          }).then(() =>{
            this.afDB.database.ref('request').child(userDetails.userid).child('Received Requests').push({
-             Id: this.UserUid
+             Id: this.userid
            }).then(() =>{
              resolve(true)
            })
