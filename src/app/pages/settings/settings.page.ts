@@ -20,6 +20,20 @@ export class SettingsPage implements OnInit {
   ngOnInit() {
   }
 
+
+  
+    openFriend(){
+      this.NavCtr.navigateRoot('/friends');
+   }
+  
+    requestopen(){
+      this.NavCtr.navigateRoot('/requests');
+   }
+ 
+    openBlock(){
+      this.NavCtr.navigateRoot('/block');
+   }
+
   logout() {
   this.authservice.logout().then(() => {
   this.NavCtr.navigateRoot('login');

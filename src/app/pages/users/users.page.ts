@@ -5,13 +5,19 @@ import { AuthService } from '../../providers/auth.service';
 import { RequestService } from '../../providers/request.service';
 
 
-import { NavController, AlertController, LoadingController } from '@ionic/angular';
+import { NavController, AlertController, LoadingController, Platform } from '@ionic/angular';
+
+declare let window: any;
+
+
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.page.html',
   styleUrls: ['./users.page.scss'],
 })
+
+
 export class UsersPage implements OnInit {
 
   users = [];
@@ -21,11 +27,18 @@ export class UsersPage implements OnInit {
     public Navcoon: NavController,
     public alert: AlertController,
     public request: RequestService,
-    public loadctr: LoadingController
+    public loadctr: LoadingController,
+    private platform: Platform
   ) { }
 
   ngOnInit() {
     this.ionViewAllEnter();
+  }
+  
+  showtoats(message){
+      this.platform.ready().then(() => {
+        window.plugins.toast.show(message, "short", 'bottom')
+      })
   }
 
   ionViewAllEnter() {
@@ -75,19 +88,19 @@ export class UsersPage implements OnInit {
       if(this.users.length > 1){
              this.userservice.GetAllUsers().then((res: any) =>{
                this.users = res
-                console.log('Request has been sent to ' + userDetails.Name);
+                this.showtoats('Request has been sent to ' + userDetails.Name)
              }).catch((err) =>{
                loading.dismiss();
-                     console.log(err);
-             })
+               this.showtoats(err);
+              })
       }else{
         loading.dismiss();
         this.Navcoon.pop()
-        console.log('Request has been sent to ' + userDetails.Name);
+        this.showtoats('Request has been sent to ' + userDetails.Name)
       }
     }).catch((err) =>{
       loading.dismiss();
-      console.log(err);
+      this.showtoats(err);
     })
   }
 

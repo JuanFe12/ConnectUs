@@ -12,7 +12,10 @@ const routes: Routes = [
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' },
   { path: 'resetpassword', loadChildren: './pages/resetpassword/resetpassword.module#ResetpasswordPageModule' },
-  { path: 'tabs', loadChildren: './pages/tabs/tabs.module#TabsPageModule' },  { path: 'users', loadChildren: './pages/users/users.module#UsersPageModule' }
+  { path: 'tabs', loadChildren: './pages/tabs/tabs.module#TabsPageModule' },  { path: 'users', loadChildren: './pages/users/users.module#UsersPageModule' },
+  { path: 'requests', loadChildren: './pages/requests/requests.module#RequestsPageModule' },
+  { path: 'friends', loadChildren: './pages/friends/friends.module#FriendsPageModule' },
+  { path: 'block', loadChildren: './pages/block/block.module#BlockPageModule' }
 
 ];
 @NgModule({

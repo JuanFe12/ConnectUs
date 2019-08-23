@@ -3,23 +3,21 @@
     <ion-title>login</ion-title>
   </ion-toolbar>
 </ion-header>
-
-<ion-content Padding>
-
+<ion-content padding >
 <div class="container">
-  <ion-item>
+  <ion-item class="email">
     <ion-label position="floating"><ion-icon name="mail"></ion-icon>Email</ion-label>
     <ion-input type="email" [(ngModel)]="userDetails.Email"></ion-input>
   </ion-item>
   
-  <ion-item>
+  <ion-item class="password">
     <ion-label position="floating"><ion-icon name="lock"></ion-icon>Password</ion-label>
     <ion-input type="password" [(ngModel)]="userDetails.Password"></ion-input>
   </ion-item>
   
-  <a (click)="forgotpassword()"  routerLink="/resetpassword"><p>Forgot Password</p></a> 
-  <ion-button expand="block" (click)="login()" class="login">Login</ion-button>
-  <ion-button expand="block" (click)="register()" class="register"  routerLink="/register">Register</ion-button>
+  <a (click)="forgotpassword()"  routerLink="/resetpassword" ><p class="forgot">Forgot Password</p></a> 
+  <button  (click)="login()" class="login">Login</button>
+  <button  (click)="register()" class="register"  routerLink="/register">Register</button>
 </div>
 
 
