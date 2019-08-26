@@ -50,7 +50,7 @@ constructor(
      }
       }
     })
-    this.afDB.database.ref('request').child(this.userid).child('Sent Requests').once('value' , snap =>{
+    this.afDB.database.ref('request').child(this.userid).child('Received Requests').once('value' , snap =>{
       const res = snap.val();
       const array3 = [];
       // tslint:disable-next-line: forin
@@ -61,18 +61,44 @@ constructor(
         
         
       }
+      console.log(array3);
+      
     for (let aa = array.length - 1; aa >= 0;  aa--) {
       for (let bb = 0; bb < array3.length; bb++) {
-        if (array[aa].userid === array3[bb].Id) {
+        if (array[aa].userid === array3[bb].userid) {
                   array.splice(aa, 1);
         }
    }
     }
   })
-    resolve(array)
-    }).catch((err) => {
-      reject(err);
-       });
+
+
+  this.afDB.database.ref('friends').child(this.userid).once('value', snap =>{
+    const res = snap.val();
+    const array4 = [];
+    // tslint:disable-next-line: forin
+    for (const i in res) {
+     array4.push(res[i]);
+      console.log(res);
+    }
+          for (let aa = array.length - 1; aa >= 0;  aa--) {
+            for (let bb = 0; bb < array4.length; bb++) {
+              if (array[aa].userid ===array4[bb].Id) {
+                        array.splice(aa, 1);
+              }
+        }
+          }
+
+            resolve(array)
+            }).catch((err)=>{
+              
+                reject(err);
+            })
+          }).catch((err)=>{
+          
+              reject(err);
+         })
+
     });
     return promise;
   }

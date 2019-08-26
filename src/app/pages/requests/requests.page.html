@@ -6,9 +6,9 @@
 
 <ion-content padding>
 
-  <div *ngIf="sentRequests" >
+  <div *ngIf="sentRequests != 1" >
       <ion-list-header>Sent Request</ion-list-header>    
-          <ion-item *ngFor="let user of sentRequests; let i = index" (click)="showsentrequest()"  >
+          <ion-item *ngFor="let user of sentRequests" (click)="showsentrequest(user)" >
               <ion-avatar item-start>
                 <img src="{{user.photo}}">
               </ion-avatar>
@@ -16,9 +16,9 @@
           </ion-item>
   </div>
 
-  <div *ngIf="receivedRequests" >
+  <div *ngIf="receivedRequests != 1" >
       <ion-list-header>Received Request</ion-list-header>
-          <ion-item *ngFor="let user of receivedRequests; let i = index" (click)="showreceivedrequest()">
+          <ion-item *ngFor="let user of receivedRequests" (click)="showreceivedrequest(user)">
               <ion-avatar item-start>
                 <img src="{{user.photo}}">
               </ion-avatar>

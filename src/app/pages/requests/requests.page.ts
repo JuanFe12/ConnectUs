@@ -27,13 +27,15 @@ export class RequestsPage implements OnInit {
   }
 
   ionViewWillEnter(){
-   this.Request.GetreceivedRequests().then((res: any) =>{
-       this.receivedRequests = res 
-   })
+
 
    this.Request.GetsentRequest().then((res: any) =>{
     this.sentRequests = res 
 })
+
+  this.Request.GetreceivedRequests().then((res: any) =>{
+    this.receivedRequests = res 
+  })
   }
 
   async showsentrequest(userDetails){
@@ -50,13 +52,14 @@ export class RequestsPage implements OnInit {
               {
                 text:'Delete Request',
                 handler: () => {
-                  console.log('Delete Request');
+                    this.delete(userDetails);
                 }
              },
              {
-              text:'Block',
+              text:'Block to ' + userDetails.Name,
               handler: () => {
                 console.log('Block');
+                this.block(userDetails)
               }
            }
       ]
@@ -76,21 +79,21 @@ export class RequestsPage implements OnInit {
                  }
               },
               {
-                text:'Remove',
+                text:'Delete Request',
                 handler: () => {
-                 console.log('Remove');
+                  this.delete(userDetails);
                 }
              },
               {
-                text:'Block',
+                text:'Block to ' + userDetails.Name,
                 handler: () => {
-                  console.log('Block');
+                  this.block(userDetails)
                 }
              },
              {
               text:'Accept',
               handler: () => {
-                 console.log('Aceept');
+                 this.accept(userDetails)
               }
            }
       ]
@@ -98,4 +101,21 @@ export class RequestsPage implements OnInit {
     await confirm.present();
   }
 
+  delete(userDetails){
+    this.Request.deleteRequest(userDetails).then(() =>{
+      console.log('Request has been delete');
+      
+    })
+  }
+
+  accept(userDetails){
+    this.Request.AcceptRequest(userDetails).then(() =>{
+      console.log('You and ' + userDetails.Name + ' become friends');
+    })
+  }
+
+  block(userDetails){
+    console.log('Your Request has been block');
+    
+  }
 }

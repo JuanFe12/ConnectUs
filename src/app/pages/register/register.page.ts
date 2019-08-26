@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, LoadingController, Platform, ToastController } from '@ionic/angular';
 import { AuthService } from '../../providers/auth.service';
-import {Md5} from 'ts-md5/dist/md5';
-
 declare let window: any;
 
 @Component({
@@ -10,6 +8,8 @@ declare let window: any;
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
 })
+
+
 export class RegisterPage implements OnInit {
 
   userDetails = {
