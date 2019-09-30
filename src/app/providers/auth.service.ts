@@ -42,10 +42,10 @@ export class AuthService {
       this.Auth.auth.createUserWithEmailAndPassword(userDetails.Email, userDetails.Password).then(() => {
         this.afDB.database.ref('Users').push((
           // tslint:disable-next-line: no-unused-expression
-          userDetails.userid = this.Auth.auth.currentUser.uid,
-          userDetails
-)).then(() => {
-          resolve(true);
+             userDetails.userid = this.Auth.auth.currentUser.uid,
+                userDetails
+              )).then(() => {
+            resolve(true);
         }).catch((err) => {
           reject(err);
         });

@@ -9,6 +9,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 export class RequestService {
 
   userid = window.localStorage.getItem('userid');
+  public Id : any
   constructor(
       public Auth: AngularFireAuth,
       public afDB: AngularFireDatabase
@@ -114,46 +115,74 @@ export class RequestService {
 
   deleteRequest(userDetails){
    let promise = new Promise ((resolve, reject) => {
-       this.afDB.database.ref('request').child(this.userid).child('Sent Requests').orderByChild('Id').equalTo(userDetails.userid).once('value', snap => {
-         
-         let res = snap.val()
-         let tempstore = Object.keys(res)
-
-          this.afDB.database.ref('request').child(this.userid).child('Sent Requests').child(tempstore[0]).remove().then(() => {
-            this.afDB.database.ref('request').child(userDetails.userid).child('Received Requests').orderByChild('Id').equalTo(this.userid).once('value', snap => {
-              
-              let res = snap.val()
-              let tempstore = Object.keys(res)
-
-              this.afDB.database.ref('request').child(this.userid).child('Received Requests').child(tempstore[0]).remove().then(() => {
-                  resolve(true)
-              }).catch((err) => {
-                reject(err)
-              })
-            }).catch((err) =>{
-              reject(err)
-           })
-          }).catch((err) =>{
+    this.afDB.database.ref('request').child(this.userid).child('Sent Requests').orderByChild('Id').equalTo(userDetails.userid).once('value', snap => {
+      var res = snap.val()
+      let tempstore = Object.keys(res)
+      this.afDB.database.ref('request').child(this.userid).child('Sent Requests').child(tempstore[0]).remove().then(() => {
+        this.afDB.database.ref('request').child(userDetails.userid).child('Received Requests').orderByChild('Id').equalTo(this.userid).once('value', snap => {
+          var res = snap.val()
+          let tempstore = Object.keys(res)
+          this.afDB.database.ref('request').child(userDetails.userid).child('Received Requests').child(tempstore[0]).remove().then(() => {
+            resolve(true)
+          }).catch((err) => {
             reject(err)
-         })
-       })
-   })
+          })
+        }).catch((err) => {
+          reject(err)
+        })
+      }).catch((err) => {
+        reject(err)
+      })
+    })
+  })
    return promise 
   }
 
-  AcceptRequest(userDetails){
-     let promise = new Promise((resolve, reject) =>{
-         this.afDB.database.ref('Friends').child(userDetails.Id).push(() =>{
-           Id: this.userid
-         }).then(() =>{
-           this.afDB.database.ref('Friends').child(this.userid).push(() => {
-             Id: userDetails.Id
-           }).then(() =>{
-             this.deleteRequest(userDetails).then(() =>{
+  deleteReceivedRequest(userDetails) {
+    var promise = new Promise((resolve, reject) => {
+      this.afDB.database.ref('request').child(this.userid).child('Received Requests').orderByChild('Id').equalTo(userDetails.userid).once('value', snap => {
+        var res = snap.val()
+         let tempstore = Object.keys(res)
+         this.afDB.database.ref('request').child(this.userid).child('Received Requests').child(tempstore[0]).remove().then(() => {
+           this.afDB.database.ref('request').child(userDetails.userid).child('Sent Requests').orderByChild('Id').equalTo(this.userid).once('value', snap => {
+             var res = snap.val()
+             let tempstore = Object.keys(res)
+             this.afDB.database.ref('request').child(userDetails.userid).child('Sent Requests').child(tempstore[0]).remove().then(() => {
                resolve(true)
-             }).catch((err) =>{
+             }).catch((err) => {
                reject(err)
              })
+           })
+         }).catch((err) => {
+           reject(err)
+         })
+        }).catch((err) => {
+          reject(err)
+        })
+    })
+    return promise
+  }
+  AcceptRequest(userDetails){
+     let promise = new Promise((resolve, reject) =>{
+         this.afDB.database.ref('Friends').child(userDetails.userid).push({
+          Id: this.userid
+
+         }).then(() =>{
+           this.afDB.database.ref('Friends').child(this.userid).push({
+
+            Id: userDetails.userid
+           }).then(() =>{
+                  this.deleteReceivedRequest(userDetails)
+           }).then(() =>{
+                  this.afDB.database.ref('request').child(userDetails.userid).child('Sent Requests').orderByChild('Id').equalTo(this.userid).once('value', snap =>{
+                    var res = snap.val()
+                    let tempstore = Object.keys(res)
+                    this.afDB.database.ref('request').child(userDetails.userid).child('Sent Requests').child(tempstore[0]).remove().then(() =>{
+                      resolve(true)
+                    }).catch((err) =>{
+
+                    })
+              })
            })
          })
      })
